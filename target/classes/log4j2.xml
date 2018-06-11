@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <properties>
+        <!-- 文件输出格式 -->
+        <property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss} |-%-5level [%thread] %c [%L] -| %msg%n</property>
+        <property name="log.dir">C:\logs</property>
+    </properties>
+    <appenders>
+        <Console name="console" target="SYSTEM_OUT" follow="true">
+            <!--控制台只输出level及以上级别的信息-->
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <Pattern>${PATTERN}</Pattern>
+            </PatternLayout>
+        </Console>
+        <!-- 同一来源的Appender可以定义多个RollingFile，定义按天存储日志 -->
+        <RollingFile name="rolling_file"
+                     fileName="${log.dir}/info.log" filePattern="${log.dir}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>${PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="5MB"/>
+            </Policies>
+        </RollingFile>
+        <File name="file" fileName="${log.dir}/error.log" append="true">
+            <!--&lt;!&ndash;控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）&ndash;&gt;-->
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <Pattern>${PATTERN}</Pattern>
+            </PatternLayout>
+        </File>
+    </appenders>
+    <loggers>
+        <Root level="DEBUG">
+            <appender-ref ref="file" />
+            <appender-ref ref="rolling_file"/>
+            <appender-ref ref="console"/>
+        </Root>
+    </loggers>
+</configuration>

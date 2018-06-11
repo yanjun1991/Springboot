@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Title</title>
+</head>
+<link href="css/csstest.css" rel="stylesheet"/>
+<body>
+<p>welcome page is login.........</p>
+<a href="welcome.html" th:href="@{/product/add}" style="font-size: 16px;color: red">add</a>
+<table class="table table-hover table-condensed">
+    <legend>
+        <strong>商品类别</strong>
+    </legend>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>商品名称</th>
+        <th>类型</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${page.content}">
+        <th scope="row" th:text="${product.id}"></th>
+        <td th:text="${product.categoryName}"></td>
+        <td th:text="${product.categoryType}"></td>
+        <td><a th:href="@{/product/{id}/delete(id=${product.id})}" th:text="删除"></a></td>
+    </tr>
+    </tbody>
+</table>
+<div>
+     <a th:href="@{/product/categorylist(start=0)}">[首页]</a>&nbsp;&nbsp;
+     <a th:if="${not page.isFirst()}" th:href="@{/product/categorylist(start=${page.number-1})}">[上页]</a>&nbsp;&nbsp;
+     <a th:if="${not page.isLast()}" th:href="@{/product/categorylist(start=${page.number+1})}">[下页]</a>&nbsp;&nbsp;
+     <a th:href="@{/product/categorylist(start=${page.totalPages-1})}">[末页]</a>
+</div>
+</body>
+</html>
