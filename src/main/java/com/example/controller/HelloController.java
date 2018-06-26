@@ -25,11 +25,9 @@ public class HelloController {
     @Autowired
     private ProductCategoryService productCategoryService;
     private static Integer userNum=0;
-    @Autowired
-    private ProductCategoryRepository productCategoryRepository;
 
     @RequestMapping("/categorylist")
-    public String index(Model model, @RequestParam(value = "start", defaultValue = "0") Integer start, @RequestParam(value = "limit", defaultValue = "2") Integer limit){
+    public String index(Model model, @RequestParam(value = "start", defaultValue = "0") Integer start, @RequestParam(value = "limit", defaultValue = "5") Integer limit){
         Pageable pageable = PageableTools.basicPage(start, limit, new SortDto("ASC", "id"));
         Page<ProductCategory> page = productCategoryService.findAll(pageable);
         model.addAttribute("page",page);

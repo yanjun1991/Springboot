@@ -37,7 +37,6 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
      * @return
      */
     @Override
-    @Cacheable(value="productCategory")
     public Page<ProductCategory> findAll(Pageable pageable) {
         return productCategoryRepository.findAll(pageable);
     }

@@ -39,15 +39,15 @@ public class HttpAspect {
             String targetName = joinPoint.getTarget().getClass().getName();//请求类
             String methodName = joinPoint.getSignature().getName();//请求方法名
             //*========控制台输出=========*//
-            logger.info("=====controller后置通知开始====="+ LocalDateTime.now().toString());
+            logger.info("=====controller后置通知开始=====");
             logger.info("请求方法:{" + targetName + "." + methodName+"}");
             logger.info("方法参数:" + getArgs(joinPoint));
             logger.info("请求IP:" + ip);
-            logger.info("=====controller后置通知结束====="+LocalDateTime.now().toString());
+            logger.info("=====controller后置通知结束=====");
         }  catch (Exception e) {
-            logger.error("==后置通知异常开始=="+LocalDateTime.now().toString());
+            logger.error("==后置通知异常开始==");
             logger.error("异常信息:", e);
-            logger.error("=====后置通知异常结束====="+LocalDateTime.now().toString());
+            logger.error("=====后置通知异常结束=====");
         }
     }
     //获取所有的参数名和值，组装为String
